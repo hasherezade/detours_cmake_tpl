@@ -37,7 +37,10 @@ set (srcs
 set (hdrs
 	Detours/src/detours.h
 	Detours/src/detver.h
+	Detours/src/uimports.cpp
 )
+
+set_property (SOURCE Detours/src/uimports.cpp APPEND PROPERTY HEADER_FILE_ONLY true)
 
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
 	add_definitions(-D_AMD64_)
