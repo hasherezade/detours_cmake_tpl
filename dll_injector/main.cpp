@@ -33,9 +33,9 @@ int wmain(int argc, wchar_t* argv[])
 
     bool isLoaded = inject_into_process(pid, dll_path);
     if (isLoaded) {
-        std::cout << "Injection OK!\n";
+        std::cout << "Done!\n";
         return 0;
     }
     std::cerr << "[ERROR] Creating remote thread failed!\n";
-    return -1;
+    return (-1);
 }

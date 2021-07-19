@@ -27,7 +27,7 @@ bool inject_with_loadlibrary(HANDLE hProcess, const wchar_t *inject_path)
     if (!hLoadLib) return false;
 
     //calculate size along with the terminating '\0'
-    SIZE_T inject_path_size = (wcslen(inject_path)  + 1) * sizeof(inject_path[0]);
+    SIZE_T inject_path_size = (wcslen(inject_path) + 1) * sizeof(inject_path[0]);
 
     // write the full path of the DLL into the remote process:
     PVOID remote_ptr = write_into_process(hProcess, (BYTE*)inject_path, inject_path_size, PAGE_READWRITE);
@@ -39,34 +39,38 @@ bool inject_with_loadlibrary(HANDLE hProcess, const wchar_t *inject_path)
     std::cout << "Path writen to: " << remote_ptr << "\n";
 #endif
     // Inject to the remote process:
+    DWORD ret = WAIT_FAILED;
     HANDLE hndl = CreateRemoteThread(hProcess, NULL, 0, (LPTHREAD_START_ROUTINE)hLoadLib, remote_ptr, NULL, NULL);
     if (hndl) {
-        WaitForSingleObject(hndl, INFINITE);
-    }
-    else {
-        std::cerr << "[ERROR] Creating remote thread failed!\n";
+        ret = WaitForSingleObject(hndl, 1000);
     }
     // cleanup:
     VirtualFreeEx(hProcess, remote_ptr, 0, MEM_RELEASE);
-    return true;
+    if (ret == WAIT_OBJECT_0) {
+        return true;
+    }
+    return false;
 }
 
 bool inject_into_process(DWORD pid, const wchar_t *dll_path)
 {
     HANDLE hProcess = OpenProcess(
-        PROCESS_CREATE_THREAD | PROCESS_QUERY_INFORMATION | PROCESS_VM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION,
+        PROCESS_CREATE_THREAD | PROCESS_VM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION,
         FALSE,
         pid
     );
-
     if (!hProcess || hProcess == INVALID_HANDLE_VALUE) {
-        std::cerr << "[ERROR] Opening the process failed: " << std::hex << GetLastError() << std::endl;
+        std::cerr << "[ERROR] [" << std::dec << pid << "] Opening the process failed: " << std::hex << "0x" << GetLastError() << std::endl;
         return false;
     }
 
     bool isLoaded = inject_with_loadlibrary(hProcess, dll_path);
     if (isLoaded) {
+        std::cout << "[" << pid << "] Injected\n";
         return true;
+    }
+    else {
+        std::cerr << "[ERROR][" << pid << "] Injection failed!\n";
     }
     return false;
 }
