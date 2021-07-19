@@ -6,6 +6,7 @@ A CMake template for projects using [MS Detours](https://github.com/microsoft/De
 Clone:
 -
 Use recursive clone to get the repo together with the Detours submodule:
-<pre>
+
+```console
 git clone --recursive https://github.com/hasherezade/detours_cmake_tpl.git
-</pre>
+```
