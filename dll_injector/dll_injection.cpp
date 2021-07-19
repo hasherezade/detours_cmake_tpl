@@ -35,9 +35,9 @@ bool inject_with_loadlibrary(HANDLE hProcess, const wchar_t *inject_path)
         std::cerr << "Writing to process failed: " << std::hex << GetLastError() << "\n";
         return false;
     }
-//#ifdef _DEBUG
+#ifdef _DEBUG
     std::cout << "Path writen to: " << remote_ptr << "\n";
-//#endif
+#endif
     // Inject to the remote process:
     HANDLE hndl = CreateRemoteThread(hProcess, NULL, 0, (LPTHREAD_START_ROUTINE)hLoadLib, remote_ptr, NULL, NULL);
     if (hndl) {
