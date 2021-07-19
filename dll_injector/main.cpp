@@ -3,6 +3,7 @@
 #include <sstream>
 
 #include "dll_injection.h"
+#include "process_privilege.h"
 
 int loadInt(const std::wstring &str)
 {
@@ -27,6 +28,10 @@ int wmain(int argc, wchar_t* argv[])
 
     int pid = loadInt(argv[1]);
     wchar_t *dll_path = argv[2];
+
+    if (set_debug_privilege()) {
+        std::cout << "[*] Debug privilege set!\n";
+    }
 
     std::wcout << "PID: " << pid << "\n"
         << "DLL: " << dll_path << "\n";

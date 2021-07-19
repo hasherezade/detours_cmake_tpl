@@ -8,9 +8,11 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
 set (srcs
 	main.cpp
 	dll_injection.cpp
+	process_privilege.cpp
 )
 set (hdrs
 	dll_injection.h
+	process_privilege.h
 )
 
 add_executable ( ${PROJECT_NAME} ${exe_hdrs} ${srcs} )

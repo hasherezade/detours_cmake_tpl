@@ -55,7 +55,7 @@ bool inject_with_loadlibrary(HANDLE hProcess, const wchar_t *inject_path)
 bool inject_into_process(DWORD pid, const wchar_t *dll_path)
 {
     HANDLE hProcess = OpenProcess(
-        PROCESS_CREATE_THREAD | PROCESS_VM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION,
+        PROCESS_CREATE_THREAD | PROCESS_VM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION,
         FALSE,
         pid
     );
