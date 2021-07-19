@@ -1,7 +1,16 @@
 # Detours CMake template
 [![Build status](https://ci.appveyor.com/api/projects/status/45y39vemm8foo7fc?svg=true)](https://ci.appveyor.com/project/hasherezade/detours-cmake-tpl)
 
-A CMake template for projects using [MS Detours](https://github.com/microsoft/Detours)
+A CMake template for projects using [MS Detours](https://github.com/microsoft/Detours).
+
+Contains demo projects and helpers.
++ **[libdetours](libdetours) - a CMake wrapper for MS Detours**
++ Sample projects using Detours:
+  + [project_tpl](project_tpl) - a project demonstrating how the API interception works. Hooks and unhooks itself (function `MessageBoxA`).
+  + [hooking_dll_tpl](hooking_dll_tpl) - a Hooking DLL: performs hooking of the process where it was injected
++ Helpers:
+  + [dll_injector](dll_injector) - injects a DLL into a process with the given PID (useful for injecting the *hooking DLL*)
+  + [test_app](test_app) - a sample app to be hooked by the [Hooking DLL](hooking_dll_tpl) (for test purposes)
 
 Clone:
 -
