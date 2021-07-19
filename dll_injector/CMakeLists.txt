@@ -7,11 +7,12 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
 
 set (srcs
 	main.cpp
+	dll_injection.cpp
 )
 set (hdrs
-#put your headers here
+	dll_injection.h
 )
 
-add_executable ( ${PROJECT_NAME} ${exe_hdrs} ${srcs} main.cpp )
+add_executable ( ${PROJECT_NAME} ${exe_hdrs} ${srcs} )
 
 INSTALL( TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX} COMPONENT ${PROJECT_NAME} )
