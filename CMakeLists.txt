@@ -17,3 +17,6 @@ set ( DETOURS_LIB $<TARGET_FILE:libdetours> CACHE PATH "Detours library path" )
 
 # main project
 add_subdirectory ( project_tpl )
+add_subdirectory ( hooking_dll_tpl )
+add_subdirectory ( dll_injector )
+add_subdirectory ( test_app )
