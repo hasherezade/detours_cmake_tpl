@@ -18,6 +18,6 @@ add_executable ( ${PROJECT_NAME} ${exe_hdrs} ${srcs} main.cpp )
 
 # link with libdetours.lib
 target_link_libraries ( ${PROJECT_NAME} ${DETOURS_LIB} )
-
+add_dependencies(${PROJECT_NAME} libdetours)
 
 INSTALL( TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX} COMPONENT ${PROJECT_NAME} )
