@@ -20,23 +20,27 @@ int WINAPI my_MessageBoxA(
 
     std::stringstream ss;
     ss << "Intercepted: " << lpCaption;
+
     // Execute the normal function:
     return pMessageBoxA(hWnd, lpText, ss.str().c_str(), uType);
 }
 
-void hook_apis()
+void hook_api(bool enable)
 {
-    DetourTransactionBegin();
-    DetourUpdateThread(GetCurrentThread());
-    DetourAttach(&(PVOID&)pMessageBoxA, my_MessageBoxA);
-    DetourTransactionCommit();
-}
+    LONG(WINAPI *_DetourAction)(_Inout_ PVOID *ppPointer, _In_ PVOID pDetour) = NULL;
+    if (enable) {
+        _DetourAction = DetourAttach;
+    }
+    else {
+        _DetourAction = DetourDetach;
+    }
 
-void unhook_apis()
-{
     DetourTransactionBegin();
     DetourUpdateThread(GetCurrentThread());
-    DetourDetach(&(PVOID&)pMessageBoxA, my_MessageBoxA);
+
+    // perform the action (hooking/unhooking):
+    _DetourAction(&(PVOID&)pMessageBoxA, my_MessageBoxA);
+
     DetourTransactionCommit();
 }
 
@@ -46,14 +50,14 @@ BOOL WINAPI DllMain(HANDLE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
     {
     case DLL_PROCESS_ATTACH:
         OutputDebugStringA("Hooking the process");
-        hook_apis();
+        hook_api(true);
         break;
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:
         break;
     case DLL_PROCESS_DETACH:
         OutputDebugStringA("Unhooking the process");
-        unhook_apis();
+        hook_api(false);
         break;
     }
     return TRUE;
