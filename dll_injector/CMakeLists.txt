@@ -15,6 +15,6 @@ set (hdrs
 	process_privilege.h
 )
 
-add_executable ( ${PROJECT_NAME} ${exe_hdrs} ${srcs} )
+add_executable ( ${PROJECT_NAME} ${hdrs} ${srcs} )
 
 INSTALL( TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX} COMPONENT ${PROJECT_NAME} )
