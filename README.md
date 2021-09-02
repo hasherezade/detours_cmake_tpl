@@ -9,8 +9,9 @@ Contains demo projects and helpers.
   + [project_tpl](project_tpl) - a project demonstrating how the API interception works. Hooks and unhooks itself (function `MessageBoxA`).
   + [hooking_dll_tpl](hooking_dll_tpl) - a Hooking DLL: performs hooking of the process where it was injected
 + Helpers:
-  + [dll_injector](dll_injector) - injects a DLL into a process with the given PID (useful for injecting the *hooking DLL*)
   + [test_app](test_app) - a sample app to be hooked by the [Hooking DLL](hooking_dll_tpl) (for test purposes)
+
+A DLL injector useful for testing is available [here](https://github.com/hasherezade/dll_injector)
 
 Clone:
 -
