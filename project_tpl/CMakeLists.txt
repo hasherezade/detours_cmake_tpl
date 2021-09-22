@@ -14,7 +14,7 @@ set (hdrs
 #put your headers here
 )
 
-add_executable ( ${PROJECT_NAME} ${exe_hdrs} ${srcs} main.cpp )
+add_executable ( ${PROJECT_NAME} ${hdrs} ${srcs} main.cpp )
 
 # link with libdetours.lib
 target_link_libraries ( ${PROJECT_NAME} ${DETOURS_LIB} )
