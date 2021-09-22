@@ -14,7 +14,7 @@ set (hdrs
 #put your headers here
 )
 
-add_library ( ${PROJECT_NAME} SHARED ${dll_hdrs} ${srcs} ${rsrc})
+add_library ( ${PROJECT_NAME} SHARED ${hdrs} ${srcs} ${rsrc})
 
 # link with libdetours.lib
 target_link_libraries ( ${PROJECT_NAME} ${DETOURS_LIB} )
