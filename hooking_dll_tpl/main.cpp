@@ -3,6 +3,13 @@
 #include <iostream>
 #include <sstream>
 
+#define EXP_API __declspec(dllexport)
+
+void EXP_API help(void)
+{
+    MessageBoxA(NULL, "This is the hooking DLL using MS Detours", "OK", MB_OK);
+}
+
 int (WINAPI *pMessageBoxA)(HWND hWnd, LPCSTR lpText, LPCSTR lpCaption, UINT uType) = ::MessageBoxA;
 
 int WINAPI my_MessageBoxA(
