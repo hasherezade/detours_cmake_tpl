@@ -46,6 +46,9 @@ void hook_api(bool enable)
 
 BOOL WINAPI DllMain(HANDLE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
+    if (DetourIsHelperProcess()) {
+        return TRUE;
+    }
     switch (fdwReason)
     {
     case DLL_PROCESS_ATTACH:
