@@ -6,7 +6,8 @@ int main(int argc, char *argv[])
 {
     if (argc < 3) {
         std::cout << "Run the process with the hooking DLL injected\n"
-            << "Args: <hooking_lib> <exe_to_be_hooked> [cmdline]\n";
+            << "Args: <hooking_lib*> <exe_to_be_hooked> [cmdline]\n"
+            << "* warning: in order for this injection type to work, the DLL must have at least one export\n";
         system("pause");
         return 0;
     }
@@ -30,7 +31,7 @@ int main(int argc, char *argv[])
         exe_path, 
         cmdline,
         NULL, NULL, TRUE, 
-        CREATE_DEFAULT_ERROR_MODE | CREATE_SUSPENDED,
+        CREATE_DEFAULT_ERROR_MODE,
         NULL, NULL, &si, &pi,
         dll_path,
         NULL);
@@ -39,7 +40,6 @@ int main(int argc, char *argv[])
         std::cerr << "[ERROR] Failed to create a process with DLL injected!\n";
         return -1;
     }
-    ResumeThread(pi.hThread);
     std::cout << "The process is running...\n";
     WaitForSingleObject(pi.hProcess, INFINITE);
     return 0;
