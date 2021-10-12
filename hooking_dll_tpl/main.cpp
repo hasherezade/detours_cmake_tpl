@@ -59,6 +59,7 @@ BOOL WINAPI DllMain(HANDLE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
     switch (fdwReason)
     {
     case DLL_PROCESS_ATTACH:
+        DetourRestoreAfterWith();
         OutputDebugStringA("Hooking the process");
         hook_api(true);
         break;
